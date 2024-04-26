@@ -114,6 +114,7 @@
 					"rowDelimiter": "\n",
 					"escapeChar": "\\",
 					"firstRowAsHeader": true,
+					"nullValue": ":",
 					"quoteChar": null
 				},
 				"schema": []
@@ -176,34 +177,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/HttpServer2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CSVFileWeb_allDirectory')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "HttpServer1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "HttpServerLocation",
-						"relativeUrl": "blasillo/PAD-COVID-19/blob/main/33 - cases-deaths.csv"
-					},
-					"columnDelimiter": ",",
-					"rowDelimiter": "\n",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": null
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/HttpServer1')]"
 			]
 		},
 		{
