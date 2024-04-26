@@ -502,6 +502,28 @@
 				"[concat(variables('factoryId'), '/datasets/RawFileHttps')]",
 				"[concat(variables('factoryId'), '/datasets/datalakebin')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RawFileSHttps')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "HttpServer1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "blasillo/PAD-COVID-19/blob/main/"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/HttpServer1')]"
+			]
 		}
 	]
 }
