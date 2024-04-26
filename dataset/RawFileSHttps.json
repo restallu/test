@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "blasillo/PAD-COVID-19/blob/main/"
+				"relativeUrl": "blasillo/PAD-COVID-19/blob/main/*"
 			}
 		}
 	}
