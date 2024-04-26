@@ -1,0 +1,9 @@
+{
+	"name": "MeLoQuitanDeLaFactory",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "d3881418-12da-4f7a-9e8c-13ab2390c162",
+		"tenantId": "df8b4aa6-8ab3-4a84-a045-f6a962ff2ed3"
+	}
+}
