@@ -14,11 +14,11 @@
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://github.com/"
 		},
-		"RestService1_properties_typeProperties_url": {
-			"value": "https://github.com/"
-		},
 		"HttpServer2_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com/"
+		},
+		"RestService1_properties_typeProperties_url": {
+			"value": "https://github.com/"
 		},
 		"containerUri": {
 			"value": ""
