@@ -479,7 +479,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "RawFileHttps",
+								"referenceName": "RawFileSHttps",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -499,7 +499,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/RawFileHttps')]",
+				"[concat(variables('factoryId'), '/datasets/RawFileSHttps')]",
 				"[concat(variables('factoryId'), '/datasets/datalakebin')]"
 			]
 		},
