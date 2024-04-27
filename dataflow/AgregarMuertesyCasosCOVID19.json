@@ -27,7 +27,7 @@
 				"          population as decimal(10,0),",
 				"          indicator as string,",
 				"          daily_count as long,",
-				"          date as date 'yyyy/MM/dd',",
+				"          date as date 'yyyy-MM-dd',",
 				"          rate_14_day as decimal(10,0),",
 				"          source as string",
 				"     ),",
