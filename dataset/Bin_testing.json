@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "blasillo/PA-COVID-19/33 - testing.csv"
+				"relativeUrl": "blasillo/PA-COVID-19/blob/main/33 - testing.csv"
 			}
 		}
 	}
