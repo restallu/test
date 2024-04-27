@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "blasillo/PAD-COVID-19/main/20 - population-by-age.tsv"
+				"relativeUrl": "blasillo/PAD-COVID-19/main/33 - cases-deaths.csv"
 			},
 			"columnDelimiter": ",",
 			"rowDelimiter": "\n",
