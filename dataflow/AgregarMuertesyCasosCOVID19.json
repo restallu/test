@@ -59,7 +59,7 @@
 				"     {} = sum(daily_count),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivot1",
-				"source1 filter(continent==\"Europe\") ~> FiltrarContinenteEuropa",
+				"source1 filter(continent==\"Asia\") ~> FiltrarContinenteEuropa",
 				"pivot1 sink(allowSchemaDrift: false,",
 				"     validateSchema: false,",
 				"     input(",
