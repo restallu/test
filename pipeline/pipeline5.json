@@ -20,10 +20,6 @@
 						"type": "DataFlowReference"
 					},
 					"staging": {
-						"linkedService": {
-							"referenceName": "AzureBlobStorage1",
-							"type": "LinkedServiceReference"
-						},
 						"folderPath": "blobcontainer4datalake/covid19/blasillo/PAD-COVID-19/formatted"
 					},
 					"compute": {
