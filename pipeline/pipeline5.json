@@ -19,11 +19,20 @@
 						"referenceName": "AgregarMuertesyCasosCOVID19",
 						"type": "DataFlowReference"
 					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "AzureBlobStorage1",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "blobcontainer4datalake/covid19/blasillo/PAD-COVID-19/formatted"
+					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
 					},
-					"traceLevel": "Fine"
+					"traceLevel": "Fine",
+					"runConcurrently": true,
+					"continueOnError": true
 				}
 			}
 		],
