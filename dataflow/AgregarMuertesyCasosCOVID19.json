@@ -61,7 +61,7 @@
 				"     lateral: true) ~> pivot1",
 				"source1 filter(continent==\"Asia\") ~> FiltrarContinenteEuropa",
 				"pivot1 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
+				"     validateSchema: true,",
 				"     input(",
 				"          country as string,",
 				"          country_code as string,",
