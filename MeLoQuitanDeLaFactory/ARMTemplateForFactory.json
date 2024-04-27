@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://datalkstorageacc.dfs.core.windows.net/"
@@ -25,7 +29,7 @@
 		},
 		"RestService1_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://github.com/"
+			"defaultValue": "https://raw.githubusercontent.com/"
 		}
 	},
 	"variables": {
@@ -85,7 +89,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "CSVFileWeb",
+								"referenceName": "CSVFileWeb_Case_Deaths",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -106,7 +110,7 @@
 				"lastPublishTime": "2024-04-26T09:50:48Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/CSVFileWeb')]",
+				"[concat(variables('factoryId'), '/datasets/CSVFileWeb_Case_Deaths')]",
 				"[concat(variables('factoryId'), '/datasets/datalake')]"
 			]
 		},
@@ -569,12 +573,12 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/CSVFileWeb')]",
+			"name": "[concat(parameters('factoryName'), '/CSVFileWeb_Case_Deaths')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "HttpServer1",
+					"referenceName": "HttpServer2",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -582,19 +586,56 @@
 				"typeProperties": {
 					"location": {
 						"type": "HttpServerLocation",
-						"relativeUrl": "blasillo/PAD-COVID-19/blob/main/20 - population-by-age.tsv"
+						"relativeUrl": "blasillo/PAD-COVID-19/main/33 - cases-deaths.csv"
 					},
 					"columnDelimiter": ",",
 					"rowDelimiter": "\n",
 					"escapeChar": "\\",
 					"firstRowAsHeader": true,
 					"nullValue": ":",
-					"quoteChar": null
+					"quoteChar": "\""
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "country",
+						"type": "String"
+					},
+					{
+						"name": "country_code",
+						"type": "String"
+					},
+					{
+						"name": "continent",
+						"type": "String"
+					},
+					{
+						"name": "population",
+						"type": "String"
+					},
+					{
+						"name": "indicator",
+						"type": "String"
+					},
+					{
+						"name": "daily_count",
+						"type": "String"
+					},
+					{
+						"name": "date",
+						"type": "String"
+					},
+					{
+						"name": "rate_14_day",
+						"type": "String"
+					},
+					{
+						"name": "source\r",
+						"type": "String"
+					}
+				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/HttpServer1')]"
+				"[concat(variables('factoryId'), '/linkedServices/HttpServer2')]"
 			]
 		},
 		{
@@ -776,7 +817,7 @@
 				"type": "RestService",
 				"typeProperties": {
 					"url": "[parameters('RestService1_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
+					"enableServerCertificateValidation": false,
 					"authenticationType": "Anonymous"
 				}
 			},
@@ -840,6 +881,177 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/pipeline2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AgregarMuertesyCasosCOVID19')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "CSVFileBLOB_Case_Deaths",
+								"type": "DatasetReference"
+							},
+							"name": "source1",
+							"description": "Import data from CSVFileWeb_Case_Deaths"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "CSVFileBLOB_Case_Deaths",
+								"type": "DatasetReference"
+							},
+							"name": "sink1",
+							"rejectedDataLinkedService": {
+								"referenceName": "AzureBlobStorage1",
+								"type": "LinkedServiceReference"
+							}
+						}
+					],
+					"transformations": [
+						{
+							"name": "pivot1"
+						},
+						{
+							"name": "FiltrarContinenteEuropa"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          country as string,",
+						"          country_code as string,",
+						"          continent as string,",
+						"          population as decimal(10,0),",
+						"          indicator as string,",
+						"          daily_count as long,",
+						"          date as date 'yyyy-MM-dd',",
+						"          rate_14_day as float,",
+						"          source as string",
+						"     ),",
+						"     allowSchemaDrift: false,",
+						"     validateSchema: false,",
+						"     limit: 0,",
+						"     ignoreNoFilesFound: false,",
+						"     maxColumns: 50) ~> source1",
+						"FiltrarContinenteEuropa pivot(groupBy(country,",
+						"          country_code,",
+						"          date,",
+						"          population),",
+						"     pivotBy(indicator),",
+						"     {} = sum(daily_count),",
+						"     columnNaming: '$N$V',",
+						"     lateral: true) ~> pivot1",
+						"source1 filter(continent==\"Europe\") ~> FiltrarContinenteEuropa",
+						"pivot1 sink(allowSchemaDrift: false,",
+						"     validateSchema: false,",
+						"     input(",
+						"          country as string,",
+						"          country_code as string,",
+						"          continent as string,",
+						"          population as string,",
+						"          indicator as string,",
+						"          daily_count as string,",
+						"          date as string,",
+						"          rate_14_day as string,",
+						"          source as string",
+						"     ),",
+						"     filePattern:'case-deaths[n]',",
+						"     truncate: true,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     outputAssertFailedRows: true,",
+						"     assertFailure_container: 'blobcontainer4datalake',",
+						"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted') ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/CSVFileBLOB_Case_Deaths')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CSVFileBLOB_Case_Deaths')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "33 - cases-deaths.csv",
+						"folderPath": "covid19/blasillo/PAD-COVID-19/main",
+						"container": "blobcontainer4datalake"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "country",
+						"type": "String"
+					},
+					{
+						"name": "country_code",
+						"type": "String"
+					},
+					{
+						"name": "continent",
+						"type": "String"
+					},
+					{
+						"name": "population",
+						"type": "String"
+					},
+					{
+						"name": "indicator",
+						"type": "String"
+					},
+					{
+						"name": "daily_count",
+						"type": "String"
+					},
+					{
+						"name": "date",
+						"type": "String"
+					},
+					{
+						"name": "rate_14_day",
+						"type": "String"
+					},
+					{
+						"name": "source",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
 			]
 		}
 	]
