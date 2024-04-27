@@ -58,7 +58,7 @@
 				"          population),",
 				"     pivotBy(indicator),",
 				"     {} = sum(daily_count),",
-				"     columnNaming: '$N$V_calc',",
+				"     columnNaming: 'Total_$N$V',",
 				"     lateral: true) ~> pivot1",
 				"source1 filter(continent==\"Asia\") ~> FiltrarContinenteEuropa",
 				"pivot1 sink(allowSchemaDrift: true,",
