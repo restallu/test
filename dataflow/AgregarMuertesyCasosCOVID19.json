@@ -52,7 +52,6 @@
 				"     ),",
 				"     allowSchemaDrift: false,",
 				"     validateSchema: false,",
-				"     limit: 0,",
 				"     ignoreNoFilesFound: false,",
 				"     maxColumns: 50) ~> source1",
 				"FiltrarContinenteEuropa pivot(groupBy(country,",
