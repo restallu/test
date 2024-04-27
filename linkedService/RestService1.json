@@ -1,13 +1,13 @@
 {
 	"name": "RestService1",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "https://github.com/",
-			"enableServerCertificateValidation": true,
+			"url": "https://raw.githubusercontent.com/",
+			"enableServerCertificateValidation": false,
 			"authenticationType": "Anonymous"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }
