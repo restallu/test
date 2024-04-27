@@ -69,6 +69,7 @@
 						"     maxColumns: 50) ~> source1",
 						"FiltrarContinenteEuropa pivot(groupBy(country,",
 						"          country_code,",
+						"          continent,",
 						"          date,",
 						"          population),",
 						"     pivotBy(indicator),",
