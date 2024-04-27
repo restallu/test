@@ -17,6 +17,9 @@
 			"transformations": [
 				{
 					"name": "pivot1"
+				},
+				{
+					"name": "FiltrarContinenteEuropa"
 				}
 			],
 			"scriptLines": [
@@ -36,9 +39,15 @@
 				"     limit: 0,",
 				"     ignoreNoFilesFound: false,",
 				"     maxColumns: 50) ~> source1",
-				"source1 pivot(pivotBy(indicator),",
+				"FiltrarContinenteEuropa pivot(groupBy(country,",
+				"          country_code,",
+				"          date,",
+				"          population),",
+				"     pivotBy(indicator),",
+				"     {} = sum(daily_count),",
 				"     columnNaming: '$N$V',",
-				"     lateral: true) ~> pivot1"
+				"     lateral: true) ~> pivot1",
+				"source1 filter(continent==\"Europe\") ~> FiltrarContinenteEuropa"
 			]
 		}
 	}
