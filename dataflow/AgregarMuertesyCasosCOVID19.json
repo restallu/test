@@ -16,7 +16,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "CSVFileBLOB_Case_Deaths",
+						"referenceName": "CSVFileBLOB_Case_Deaths_Out",
 						"type": "DatasetReference"
 					},
 					"name": "sink1",
@@ -36,6 +36,9 @@
 				{
 					"name": "MapDrifted1",
 					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "Assert1"
 				}
 			],
 			"scriptLines": [
@@ -66,19 +69,9 @@
 				"source1 filter(continent==\"Asia\") ~> FiltrarContinenteEuropa",
 				"pivot1 derive({Total_confirmed cases} = toLong(byName('Total_confirmed cases')),",
 				"          Total_deaths = toLong(byName('Total_deaths'))) ~> MapDrifted1",
-				"MapDrifted1 sink(allowSchemaDrift: true,",
+				"MapDrifted1 assert(expectTrue(ERROR_FUNCTION(''), false, 'assert1')) ~> Assert1",
+				"Assert1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     input(",
-				"          country as string,",
-				"          country_code as string,",
-				"          continent as string,",
-				"          population as string,",
-				"          indicator as string,",
-				"          daily_count as string,",
-				"          date as string,",
-				"          rate_14_day as string,",
-				"          source as string",
-				"     ),",
 				"     partitionFileNames:['pos_cases_and_deaths.csv'],",
 				"     truncate: true,",
 				"     skipDuplicateMapInputs: true,",
@@ -86,6 +79,7 @@
 				"     outputAssertFailedRows: true,",
 				"     assertFailure_container: 'blobcontainer4datalake',",
 				"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted',",
+				"     ignoreAssertFailedRows: true,",
 				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
