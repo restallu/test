@@ -2,7 +2,7 @@
 	"name": "Bin_testing",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "HttpServer1",
+			"referenceName": "HttpServer2",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "blasillo/PAD-COVID-19/blob/main/33 - testing.csv"
+				"relativeUrl": "blasillo/PAD-COVID-19/main/33 - testing.csv"
 			}
 		}
 	}
