@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "blasillo/PA-COVID-19/20 - population-by-age.tsv"
+				"relativeUrl": "blasillo/PA-COVID-19/blob/main/20 - population-by-age.tsv"
 			}
 		}
 	}
