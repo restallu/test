@@ -49,7 +49,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "CSVFileWeb",
+						"referenceName": "CSVFileWeb_Case_Deaths",
 						"type": "DatasetReference"
 					}
 				],
