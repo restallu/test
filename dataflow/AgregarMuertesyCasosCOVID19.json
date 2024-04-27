@@ -57,7 +57,7 @@
 				"          population),",
 				"     pivotBy(indicator),",
 				"     {} = sum(daily_count),",
-				"     columnNaming: '$N$V',",
+				"     columnNaming: '$N$V_calc',",
 				"     lateral: true) ~> pivot1",
 				"source1 filter(continent==\"Asia\") ~> FiltrarContinenteEuropa",
 				"pivot1 sink(allowSchemaDrift: true,",
@@ -79,13 +79,7 @@
 				"     skipDuplicateMapOutputs: true,",
 				"     outputAssertFailedRows: true,",
 				"     assertFailure_container: 'blobcontainer4datalake',",
-				"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted',",
-				"     mapColumn(",
-				"          country,",
-				"          country_code,",
-				"          population,",
-				"          date",
-				"     )) ~> sink1"
+				"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted') ~> sink1"
 			]
 		}
 	}
