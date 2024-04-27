@@ -13,7 +13,19 @@
 					"description": "Import data from CSVFileWeb_Case_Deaths"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "CSVFileBLOB_Case_Deaths",
+						"type": "DatasetReference"
+					},
+					"name": "sink1",
+					"rejectedDataLinkedService": {
+						"referenceName": "AzureBlobStorage1",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
 			"transformations": [
 				{
 					"name": "pivot1"
@@ -47,7 +59,27 @@
 				"     {} = sum(daily_count),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivot1",
-				"source1 filter(continent==\"Europe\") ~> FiltrarContinenteEuropa"
+				"source1 filter(continent==\"Europe\") ~> FiltrarContinenteEuropa",
+				"pivot1 sink(allowSchemaDrift: false,",
+				"     validateSchema: false,",
+				"     input(",
+				"          country as string,",
+				"          country_code as string,",
+				"          continent as string,",
+				"          population as string,",
+				"          indicator as string,",
+				"          daily_count as string,",
+				"          date as string,",
+				"          rate_14_day as string,",
+				"          source as string",
+				"     ),",
+				"     filePattern:'case-deaths[n]',",
+				"     truncate: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     outputAssertFailedRows: true,",
+				"     assertFailure_container: 'blobcontainer4datalake',",
+				"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted') ~> sink1"
 			]
 		}
 	}
