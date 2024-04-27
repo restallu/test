@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "CSVFileWeb_Case_Deaths",
+						"referenceName": "CSVFileBLOB_Case_Deaths",
 						"type": "DatasetReference"
 					},
 					"name": "source1",
@@ -24,16 +24,16 @@
 				"          country as string,",
 				"          country_code as string,",
 				"          continent as string,",
-				"          population as string,",
+				"          population as decimal(10,0),",
 				"          indicator as string,",
-				"          daily_count as string,",
-				"          date as string,",
-				"          rate_14_day as string,",
-				"          {source\\r} as string",
+				"          daily_count as long,",
+				"          date as date 'yyyy/MM/dd',",
+				"          rate_14_day as decimal(10,0),",
+				"          source as string",
 				"     ),",
 				"     allowSchemaDrift: false,",
 				"     validateSchema: false,",
-				"     limit: 100,",
+				"     limit: 0,",
 				"     ignoreNoFilesFound: false,",
 				"     maxColumns: 50) ~> source1",
 				"source1 pivot(pivotBy(indicator),",
