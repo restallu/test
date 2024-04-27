@@ -6,18 +6,20 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "HttpsServer",
+						"referenceName": "CSVFileWeb",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "source1",
+					"description": "Import data from CSVFileWeb"
 				}
 			],
 			"sinks": [],
 			"transformations": [],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(allowSchemaDrift: false,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false,",
+				"     moveFiles: ['/blasillo/PAD-COVID-19/main/','/blasillo/PAD-COVID-19/formatted']) ~> source1"
 			]
 		}
 	}
