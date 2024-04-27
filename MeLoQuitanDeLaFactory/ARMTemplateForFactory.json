@@ -403,56 +403,6 @@
 								"parameters": {}
 							}
 						]
-					},
-					{
-						"name": "Copy data1_copy1_copy1_copy1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 1,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "BinarySource",
-								"storeSettings": {
-									"type": "HttpReadSettings",
-									"maxConcurrentConnections": 4,
-									"requestMethod": "GET",
-									"requestTimeout": ""
-								},
-								"formatSettings": {
-									"type": "BinaryReadSettings"
-								}
-							},
-							"sink": {
-								"type": "BinarySink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings",
-									"maxConcurrentConnections": 4,
-									"copyBehavior": "PreserveHierarchy"
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "Bin_testing",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "datalakebin",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
 					}
 				],
 				"policy": {
@@ -464,8 +414,7 @@
 				"[concat(variables('factoryId'), '/datasets/Bin_cases_deaths')]",
 				"[concat(variables('factoryId'), '/datasets/datalakebin')]",
 				"[concat(variables('factoryId'), '/datasets/Bin_hospital_admissions')]",
-				"[concat(variables('factoryId'), '/datasets/Bin_populationbyage')]",
-				"[concat(variables('factoryId'), '/datasets/Bin_testing')]"
+				"[concat(variables('factoryId'), '/datasets/Bin_populationbyage')]"
 			]
 		},
 		{
