@@ -73,7 +73,7 @@
 				"          rate_14_day as string,",
 				"          source as string",
 				"     ),",
-				"     filePattern:'case-deaths[n]',",
+				"     filePattern:'case-deaths',",
 				"     truncate: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
