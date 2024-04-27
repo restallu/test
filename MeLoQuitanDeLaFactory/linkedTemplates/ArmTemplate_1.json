@@ -73,10 +73,10 @@
 						"          population),",
 						"     pivotBy(indicator),",
 						"     {} = sum(daily_count),",
-						"     columnNaming: '$N$V',",
+						"     columnNaming: '$N$V_calc',",
 						"     lateral: true) ~> pivot1",
 						"source1 filter(continent==\"Asia\") ~> FiltrarContinenteEuropa",
-						"pivot1 sink(allowSchemaDrift: false,",
+						"pivot1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     input(",
 						"          country as string,",
@@ -134,7 +134,9 @@
 								"coreCount": 8,
 								"computeType": "General"
 							},
-							"traceLevel": "Fine"
+							"traceLevel": "Fine",
+							"runConcurrently": true,
+							"continueOnError": true
 						}
 					}
 				],
