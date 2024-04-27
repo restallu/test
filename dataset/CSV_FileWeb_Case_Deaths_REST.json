@@ -7,6 +7,9 @@
 		},
 		"annotations": [],
 		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "blasillo/PAD-COVID-19/main/33 - cases-deaths.csv"
+		},
 		"schema": []
 	}
 }
