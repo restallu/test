@@ -60,7 +60,7 @@
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivot1",
 				"source1 filter(continent==\"Asia\") ~> FiltrarContinenteEuropa",
-				"pivot1 sink(allowSchemaDrift: false,",
+				"pivot1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          country as string,",
