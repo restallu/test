@@ -48,6 +48,10 @@
 						},
 						{
 							"name": "FiltrarContinenteEuropa"
+						},
+						{
+							"name": "MapDrifted1",
+							"description": "Creates an explicit mapping for each drifted column"
 						}
 					],
 					"scriptLines": [
@@ -77,7 +81,9 @@
 						"     columnNaming: 'Total_$N$V',",
 						"     lateral: true) ~> pivot1",
 						"source1 filter(continent==\"Asia\") ~> FiltrarContinenteEuropa",
-						"pivot1 sink(allowSchemaDrift: true,",
+						"pivot1 derive({Total_confirmed cases} = toLong(byName('Total_confirmed cases')),",
+						"          Total_deaths = toLong(byName('Total_deaths'))) ~> MapDrifted1",
+						"MapDrifted1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     input(",
 						"          country as string,",
@@ -90,13 +96,14 @@
 						"          rate_14_day as string,",
 						"          source as string",
 						"     ),",
-						"     filePattern:'case-deaths',",
+						"     partitionFileNames:['pos_cases_and_deaths.csv'],",
 						"     truncate: true,",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     outputAssertFailedRows: true,",
 						"     assertFailure_container: 'blobcontainer4datalake',",
-						"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted') ~> sink1"
+						"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted',",
+						"     partitionBy('hash', 1)) ~> sink1"
 					]
 				}
 			},
