@@ -687,6 +687,34 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/CSVFileBLOB_Case_Deaths_Out')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "covid19/blasillo/PAD-COVID-19/formatted",
+						"container": "blobcontainer4datalake"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/CSVFileWeb_Case_Deaths')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1030,7 +1058,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "CSVFileBLOB_Case_Deaths",
+								"referenceName": "CSVFileBLOB_Case_Deaths_Out",
 								"type": "DatasetReference"
 							},
 							"name": "sink1",
@@ -1082,17 +1110,6 @@
 						"          Total_deaths = toLong(byName('Total_deaths'))) ~> MapDrifted1",
 						"MapDrifted1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     input(",
-						"          country as string,",
-						"          country_code as string,",
-						"          continent as string,",
-						"          population as string,",
-						"          indicator as string,",
-						"          daily_count as string,",
-						"          date as string,",
-						"          rate_14_day as string,",
-						"          source as string",
-						"     ),",
 						"     partitionFileNames:['pos_cases_and_deaths.csv'],",
 						"     truncate: true,",
 						"     skipDuplicateMapInputs: true,",
@@ -1106,6 +1123,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/CSVFileBLOB_Case_Deaths')]",
+				"[concat(variables('factoryId'), '/datasets/CSVFileBLOB_Case_Deaths_Out')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
 			]
 		}
