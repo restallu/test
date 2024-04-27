@@ -79,7 +79,13 @@
 				"     skipDuplicateMapOutputs: true,",
 				"     outputAssertFailedRows: true,",
 				"     assertFailure_container: 'blobcontainer4datalake',",
-				"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted') ~> sink1"
+				"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted',",
+				"     mapColumn(",
+				"          country,",
+				"          country_code,",
+				"          population,",
+				"          date",
+				"     )) ~> sink1"
 			]
 		}
 	}
