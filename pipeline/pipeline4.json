@@ -50,7 +50,7 @@
 				]
 			},
 			{
-				"name": "Copy data1_copy1",
+				"name": "Copy Hospital Admissions",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
