@@ -20,9 +20,6 @@
 		"HttpServer2_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com/"
 		},
-		"RestService1_properties_typeProperties_url": {
-			"value": "https://raw.githubusercontent.com/"
-		},
 		"containerUri": {
 			"value": ""
 		},
