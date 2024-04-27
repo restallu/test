@@ -1,0 +1,12 @@
+{
+	"name": "CSV_FileWeb_Case_Deaths_REST",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "RestService1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}
