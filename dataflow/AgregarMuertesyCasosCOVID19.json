@@ -80,13 +80,14 @@
 				"          rate_14_day as string,",
 				"          source as string",
 				"     ),",
-				"     filePattern:'case-deaths',",
+				"     partitionFileNames:['pos_cases_and_deaths.csv'],",
 				"     truncate: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     outputAssertFailedRows: true,",
 				"     assertFailure_container: 'blobcontainer4datalake',",
-				"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted') ~> sink1"
+				"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted',",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}
