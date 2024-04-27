@@ -14,13 +14,17 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "pivot1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          country as string,",
 				"          country_code as string,",
 				"          continent as string,",
-				"          population as string,",
+				"          population as decimal(10,0),",
 				"          indicator as string,",
 				"          daily_count as decimal(10,0),",
 				"          date as date 'yyyy-MM-dd',",
@@ -31,7 +35,10 @@
 				"     validateSchema: false,",
 				"     limit: 100,",
 				"     ignoreNoFilesFound: false,",
-				"     maxColumns: 50) ~> source1"
+				"     maxColumns: 50) ~> source1",
+				"source1 pivot(pivotBy(indicator),",
+				"     columnNaming: '$N$V',",
+				"     lateral: true) ~> pivot1"
 			]
 		}
 	}
