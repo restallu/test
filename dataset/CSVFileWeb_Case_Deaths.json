@@ -1,5 +1,5 @@
 {
-	"name": "CSVFileWeb",
+	"name": "CSVFileWeb_Case_Deaths",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "HttpServer2",
