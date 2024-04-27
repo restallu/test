@@ -36,7 +36,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "RawFileSHttps",
+						"referenceName": "Bin_cases_deaths",
 						"type": "DatasetReference"
 					}
 				],
