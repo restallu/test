@@ -3,7 +3,16 @@
 	"properties": {
 		"type": "WranglingDataFlow",
 		"typeProperties": {
-			"sources": []
+			"sources": [
+				{
+					"name": "CSVFileBLOB_Case_Deaths_Out",
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~>  CSVFileBLOB_Case_Deaths_Out",
+					"dataset": {
+						"referenceName": "CSVFileBLOB_Case_Deaths_Out",
+						"type": "DatasetReference"
+					}
+				}
+			]
 		}
 	}
 }
