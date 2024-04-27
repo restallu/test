@@ -577,7 +577,7 @@
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
-							"retry": 0,
+							"retry": 3,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
 							"secureInput": false
@@ -588,7 +588,9 @@
 								"type": "BinarySource",
 								"storeSettings": {
 									"type": "HttpReadSettings",
-									"requestMethod": "GET"
+									"maxConcurrentConnections": 4,
+									"requestMethod": "GET",
+									"requestTimeout": ""
 								},
 								"formatSettings": {
 									"type": "BinaryReadSettings"
@@ -624,7 +626,7 @@
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
-							"retry": 0,
+							"retry": 1,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
 							"secureInput": false
@@ -645,6 +647,7 @@
 								"type": "BinarySink",
 								"storeSettings": {
 									"type": "AzureBlobFSWriteSettings",
+									"maxConcurrentConnections": 4,
 									"copyBehavior": "PreserveHierarchy"
 								}
 							},
@@ -671,7 +674,7 @@
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
-							"retry": 0,
+							"retry": 1,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
 							"secureInput": false
@@ -682,7 +685,9 @@
 								"type": "BinarySource",
 								"storeSettings": {
 									"type": "HttpReadSettings",
-									"requestMethod": "GET"
+									"maxConcurrentConnections": 4,
+									"requestMethod": "GET",
+									"requestTimeout": ""
 								},
 								"formatSettings": {
 									"type": "BinaryReadSettings"
@@ -692,6 +697,7 @@
 								"type": "BinarySink",
 								"storeSettings": {
 									"type": "AzureBlobFSWriteSettings",
+									"maxConcurrentConnections": 4,
 									"copyBehavior": "PreserveHierarchy"
 								}
 							},
@@ -718,7 +724,7 @@
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
-							"retry": 0,
+							"retry": 1,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
 							"secureInput": false
@@ -729,7 +735,9 @@
 								"type": "BinarySource",
 								"storeSettings": {
 									"type": "HttpReadSettings",
-									"requestMethod": "GET"
+									"maxConcurrentConnections": 4,
+									"requestMethod": "GET",
+									"requestTimeout": ""
 								},
 								"formatSettings": {
 									"type": "BinaryReadSettings"
@@ -739,6 +747,7 @@
 								"type": "BinarySink",
 								"storeSettings": {
 									"type": "AzureBlobFSWriteSettings",
+									"maxConcurrentConnections": 4,
 									"copyBehavior": "PreserveHierarchy"
 								}
 							},
