@@ -96,7 +96,7 @@
 				]
 			},
 			{
-				"name": "Copy data1_copy1_copy1",
+				"name": "Copy Population by Age",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
