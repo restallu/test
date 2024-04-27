@@ -111,7 +111,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "HttpServerLocation",
-						"relativeUrl": "blasillo/PA-COVID-19/main/33 - cases-deaths.csv"
+						"relativeUrl": "blasillo/PAD-COVID-19/main/33 - cases-deaths.csv"
 					}
 				}
 			},
@@ -136,7 +136,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "HttpServerLocation",
-						"relativeUrl": "blasillo/PA-COVID-19/blob/main/33 - hospital-admissions.csv"
+						"relativeUrl": "blasillo/PAD-COVID-19/blob/main/33 - hospital-admissions.csv"
 					}
 				}
 			},
@@ -161,7 +161,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "HttpServerLocation",
-						"relativeUrl": "blasillo/PA-COVID-19/blob/main/20 - population-by-age.tsv"
+						"relativeUrl": "blasillo/PAD-COVID-19/blob/main/20 - population-by-age.tsv"
 					}
 				}
 			},
@@ -186,7 +186,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "HttpServerLocation",
-						"relativeUrl": "blasillo/PA-COVID-19/blob/main/33 - testing.csv"
+						"relativeUrl": "blasillo/PAD-COVID-19/blob/main/33 - testing.csv"
 					}
 				}
 			},
