@@ -28,7 +28,7 @@
 				"          indicator as string,",
 				"          daily_count as long,",
 				"          date as date 'yyyy-MM-dd',",
-				"          rate_14_day as decimal(10,0) '###.#######################',",
+				"          rate_14_day as decimal(10,0) '0.000000000000',",
 				"          source as string",
 				"     ),",
 				"     allowSchemaDrift: false,",
