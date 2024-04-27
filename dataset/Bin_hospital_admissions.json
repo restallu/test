@@ -2,7 +2,7 @@
 	"name": "Bin_hospital_admissions",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "HttpServer1",
+			"referenceName": "HttpServer2",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "blasillo/PAD-COVID-19/blob/main/33 - hospital-admissions.csv"
+				"relativeUrl": "blasillo/PAD-COVID-19/main/33 - hospital-admissions.csv"
 			}
 		}
 	}
