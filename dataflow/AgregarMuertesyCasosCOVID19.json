@@ -6,11 +6,11 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "CSVFileWeb",
+						"referenceName": "CSVFileWeb_Case_Deaths",
 						"type": "DatasetReference"
 					},
 					"name": "source1",
-					"description": "Import data from CSVFileWeb"
+					"description": "Import data from CSVFileWeb_Case_Deaths"
 				}
 			],
 			"sinks": [],
@@ -18,8 +18,9 @@
 			"scriptLines": [
 				"source(allowSchemaDrift: false,",
 				"     validateSchema: false,",
+				"     limit: 100,",
 				"     ignoreNoFilesFound: false,",
-				"     moveFiles: ['/blasillo/PAD-COVID-19/main/','/blasillo/PAD-COVID-19/formatted']) ~> source1"
+				"     maxColumns: 50) ~> source1"
 			]
 		}
 	}
