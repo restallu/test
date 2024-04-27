@@ -1,0 +1,20 @@
+{
+	"name": "Bin_hospital_admissions",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "HttpServer1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "PAD-COVID-19"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "blasillo/PA-COVID-19/33 - hospital-admissions.csv"
+			}
+		}
+	}
+}
