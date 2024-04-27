@@ -499,7 +499,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "HttpServer1",
+					"referenceName": "HttpServer2",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
@@ -510,12 +510,12 @@
 				"typeProperties": {
 					"location": {
 						"type": "HttpServerLocation",
-						"relativeUrl": "blasillo/PAD-COVID-19/blob/main/33 - hospital-admissions.csv"
+						"relativeUrl": "blasillo/PAD-COVID-19/main/33 - hospital-admissions.csv"
 					}
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/HttpServer1')]"
+				"[concat(variables('factoryId'), '/linkedServices/HttpServer2')]"
 			]
 		},
 		{
@@ -524,7 +524,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "HttpServer1",
+					"referenceName": "HttpServer2",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
@@ -535,12 +535,12 @@
 				"typeProperties": {
 					"location": {
 						"type": "HttpServerLocation",
-						"relativeUrl": "blasillo/PAD-COVID-19/blob/main/20 - population-by-age.tsv"
+						"relativeUrl": "blasillo/PAD-COVID-19/main/20 - population-by-age.tsv"
 					}
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/HttpServer1')]"
+				"[concat(variables('factoryId'), '/linkedServices/HttpServer2')]"
 			]
 		},
 		{
@@ -549,7 +549,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "HttpServer1",
+					"referenceName": "HttpServer2",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
@@ -560,12 +560,12 @@
 				"typeProperties": {
 					"location": {
 						"type": "HttpServerLocation",
-						"relativeUrl": "blasillo/PAD-COVID-19/blob/main/33 - testing.csv"
+						"relativeUrl": "blasillo/PAD-COVID-19/main/33 - testing.csv"
 					}
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/HttpServer1')]"
+				"[concat(variables('factoryId'), '/linkedServices/HttpServer2')]"
 			]
 		},
 		{
