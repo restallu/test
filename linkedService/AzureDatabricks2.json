@@ -1,0 +1,13 @@
+{
+	"name": "AzureDatabricks2",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-1985583429308346.6.azuredatabricks.net",
+			"authentication": "MSI",
+			"workspaceResourceId": "/subscriptions/758561f3-670c-409b-9b30-c8795149032c/resourceGroups/ResourceGroupVGL/providers/Microsoft.Databricks/workspaces/VGL_Workspace",
+			"existingClusterId": "0428-023115-a8rcwxgy"
+		}
+	}
+}
