@@ -1,5 +1,5 @@
 {
-	"name": "pipeline5",
+	"name": "TransformacionDeDatos",
 	"properties": {
 		"activities": [
 			{
@@ -18,9 +18,6 @@
 					"dataflow": {
 						"referenceName": "AgregarMuertesyCasosCOVID19",
 						"type": "DataFlowReference"
-					},
-					"staging": {
-						"folderPath": "blobcontainer4datalake/covid19/blasillo/PAD-COVID-19/formatted"
 					},
 					"compute": {
 						"coreCount": 8,

@@ -9,7 +9,7 @@
 						"referenceName": "CSVFileBLOB_Case_Deaths",
 						"type": "DatasetReference"
 					},
-					"name": "source1",
+					"name": "ExtractCasesDeaths",
 					"description": "Import data from CSVFileWeb_Case_Deaths"
 				}
 			],
@@ -19,7 +19,7 @@
 						"referenceName": "CSVFileBLOB_Case_Deaths_Out",
 						"type": "DatasetReference"
 					},
-					"name": "sink1",
+					"name": "LoadToDataLake",
 					"rejectedDataLinkedService": {
 						"referenceName": "AzureBlobStorage1",
 						"type": "LinkedServiceReference"
@@ -53,7 +53,7 @@
 				"     allowSchemaDrift: false,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     maxColumns: 50) ~> source1",
+				"     maxColumns: 50) ~> ExtractCasesDeaths",
 				"FiltrarContinenteEuropa pivot(groupBy(country,",
 				"          country_code,",
 				"          continent,",
@@ -63,7 +63,7 @@
 				"     {} = sum(daily_count),",
 				"     columnNaming: 'Total_$N$V',",
 				"     lateral: true) ~> pivot1",
-				"source1 filter(continent==\"Europe\") ~> FiltrarContinenteEuropa",
+				"ExtractCasesDeaths filter(continent==\"Europe\") ~> FiltrarContinenteEuropa",
 				"pivot1 derive({Total_confirmed cases} = toLong(byName('Total_confirmed cases')),",
 				"          Total_deaths = toLong(byName('Total_deaths'))) ~> MapDrifted1",
 				"MapDrifted1 sink(allowSchemaDrift: true,",
@@ -84,7 +84,7 @@
 				"     outputAssertFailedRows: true,",
 				"     assertFailure_container: 'blobcontainer4datalake',",
 				"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted',",
-				"     partitionBy('hash', 1)) ~> sink1"
+				"     partitionBy('hash', 1)) ~> LoadToDataLake"
 			]
 		}
 	}
