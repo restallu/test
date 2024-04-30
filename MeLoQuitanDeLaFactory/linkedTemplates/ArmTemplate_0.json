@@ -15,9 +15,25 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"AzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
+		},
+		"AzureDatabricksDeltaLake1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricksDeltaLake1'"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://datalkstorageacc.dfs.core.windows.net/"
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0428-023115-a8rcwxgy"
+		},
+		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0428-023115-a8rcwxgy"
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
@@ -57,6 +73,58 @@
 					"accountKey": {
 						"type": "SecureString",
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricks1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-1985583429308346.6.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDatabricks1_accessToken')]"
+					},
+					"existingClusterId": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricks2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-1985583429308346.6.azuredatabricks.net",
+					"authentication": "MSI",
+					"workspaceResourceId": "/subscriptions/758561f3-670c-409b-9b30-c8795149032c/resourceGroups/ResourceGroupVGL/providers/Microsoft.Databricks/workspaces/VGL_Workspace",
+					"existingClusterId": "[parameters('AzureDatabricks2_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricksDeltaLake1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricksDeltaLake",
+				"typeProperties": {
+					"domain": "https://adb-1985583429308346.6.azuredatabricks.net",
+					"clusterId": "0428-023115-a8rcwxgy",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDatabricksDeltaLake1_accessToken')]"
 					}
 				}
 			},
@@ -398,7 +466,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline4')]",
+			"name": "[concat(parameters('factoryName'), '/ExtraccionDeDatos')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -627,7 +695,7 @@
 								"referenceName": "CSVFileBLOB_Case_Deaths",
 								"type": "DatasetReference"
 							},
-							"name": "source1",
+							"name": "ExtractCasesDeaths",
 							"description": "Import data from CSVFileWeb_Case_Deaths"
 						}
 					],
@@ -637,7 +705,7 @@
 								"referenceName": "CSVFileBLOB_Case_Deaths_Out",
 								"type": "DatasetReference"
 							},
-							"name": "sink1",
+							"name": "LoadToDataLake",
 							"rejectedDataLinkedService": {
 								"referenceName": "AzureBlobStorage1",
 								"type": "LinkedServiceReference"
@@ -671,7 +739,7 @@
 						"     allowSchemaDrift: false,",
 						"     validateSchema: false,",
 						"     ignoreNoFilesFound: false,",
-						"     maxColumns: 50) ~> source1",
+						"     maxColumns: 50) ~> ExtractCasesDeaths",
 						"FiltrarContinenteEuropa pivot(groupBy(country,",
 						"          country_code,",
 						"          continent,",
@@ -681,7 +749,7 @@
 						"     {} = sum(daily_count),",
 						"     columnNaming: 'Total_$N$V',",
 						"     lateral: true) ~> pivot1",
-						"source1 filter(continent==\"Europe\") ~> FiltrarContinenteEuropa",
+						"ExtractCasesDeaths filter(continent==\"Europe\") ~> FiltrarContinenteEuropa",
 						"pivot1 derive({Total_confirmed cases} = toLong(byName('Total_confirmed cases')),",
 						"          Total_deaths = toLong(byName('Total_deaths'))) ~> MapDrifted1",
 						"MapDrifted1 sink(allowSchemaDrift: true,",
@@ -702,7 +770,7 @@
 						"     outputAssertFailedRows: true,",
 						"     assertFailure_container: 'blobcontainer4datalake',",
 						"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted',",
-						"     partitionBy('hash', 1)) ~> sink1"
+						"     partitionBy('hash', 1)) ~> LoadToDataLake"
 					]
 				}
 			},
@@ -722,7 +790,7 @@
 					"sources": [
 						{
 							"name": "CSVFileBLOB_Case_Deaths_Out",
-							"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~>  CSVFileBLOB_Case_Deaths_Out",
+							"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> CSVFileBLOB_Case_Deaths_Out",
 							"dataset": {
 								"referenceName": "CSVFileBLOB_Case_Deaths_Out",
 								"type": "DatasetReference"
@@ -736,7 +804,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline5')]",
+			"name": "[concat(parameters('factoryName'), '/TransformacionDeDatos')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -759,8 +827,8 @@
 								"type": "DataFlowReference",
 								"parameters": {},
 								"datasetParameters": {
-									"source1": {},
-									"sink1": {}
+									"ExtractCasesDeaths": {},
+									"LoadToDataLake": {}
 								}
 							},
 							"staging": {},

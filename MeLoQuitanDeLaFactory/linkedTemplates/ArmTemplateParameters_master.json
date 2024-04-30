@@ -11,8 +11,20 @@
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
+		"AzureDatabricks1_accessToken": {
+			"value": ""
+		},
+		"AzureDatabricksDeltaLake1_accessToken": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://datalkstorageacc.dfs.core.windows.net/"
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"value": "0428-023115-a8rcwxgy"
+		},
+		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
+			"value": "0428-023115-a8rcwxgy"
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://github.com/"
