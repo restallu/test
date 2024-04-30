@@ -29,7 +29,7 @@
 		},
 		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
 			"type": "string",
-			"defaultValue": "0428-023115-a8rcwxgy"
+			"defaultValue": "0429-194703-l2r0fz3t"
 		},
 		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
 			"type": "string",
@@ -850,6 +850,82 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/AgregarMuertesyCasosCOVID19')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Transf_Enlace_DataPricks')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Data flow1",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "AgregarMuertesyCasosCOVID19",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"ExtractCasesDeaths": {},
+									"LoadToDataLake": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine",
+							"runConcurrently": true,
+							"continueOnError": true
+						}
+					},
+					{
+						"name": "Notebook1",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Data flow1",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/vmgonzalez31608@alumnos.uemc.es/Import from Azure Blob Storage - 2024-04-28"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/AgregarMuertesyCasosCOVID19')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
 			]
 		}
 	]
