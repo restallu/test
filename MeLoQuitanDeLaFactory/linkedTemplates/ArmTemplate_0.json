@@ -767,6 +767,7 @@
 						"     truncate: true,",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
+						"     header: (['Pais','Coodigo Pais','Continente','Fecha','Poblacion','Total_casos_confirmados','Total_muertes']),",
 						"     outputAssertFailedRows: true,",
 						"     assertFailure_container: 'blobcontainer4datalake',",
 						"     assertFailure_folderPath: 'covid19/blasillo/PAD-COVID-19/formatted',",
